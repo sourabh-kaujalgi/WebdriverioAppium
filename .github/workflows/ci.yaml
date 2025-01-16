@@ -15,7 +15,7 @@ jobs:
           env:
             browserstackuser: ${{secrets.BROWSERSTACKUSER}}
             browserstackkey:  ${{secrets.BROWSERSTACKKEY}}
-          run: npx wdio wdio.confandroidbs.js --spec test\screenobjects\android\addnotescreen.js
+          run: npx wdio wdio.confandroidbs.js 
         - uses: actions/upload-artifact@v4
           if: failure()
           with:
