@@ -1,0 +1,23 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+        - uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Install
+          run: npm install
+        - name: Test
+          env:
+            browserstackuser: ${{secrets.BROWSERSTACKUSER}}
+            browserstackkey:  ${{secrets.BROWSERSTACKKEY}}
+          run: npx wdio wdio.confandroidbs.js --spec test\screenobjects\android\addnotescreen.js
+        - uses: actions/upload-artifact@v4
+          if: failure()
+          with:
+            name: logs
+            path: logs
